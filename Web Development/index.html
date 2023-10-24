@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <title>
+        API
+    </title>
+    <script>
+        async function callApi() {
+            //fetching api and converting it into json so we can perform some operations on it
+            let result = await fetch('https://dummyjson.com/carts');
+            result = await result.json();
+            //extracting products array and store in resultfinal 
+            let resultfinal = (result.carts[0].products);
+            console.warn(result);
+            document.getElementById("userId").innerHTML = resultfinal.map((user) =>
+            // format of row : values of total, discountPercentage,discountedPrice is appended
+                `<tr>
+                        <td>${user.total}</td>
+                <td>${user.discountPercentage}</td>
+                <td>${user.discountedPrice}</td>
+                        </tr>`
+            ).join("");
+            // .join("") method to concatenate these row strings together into a single string. The empty string "" passed as an argument to .join() specifies that there should be no separator between the row strings
+
+
+
+        }
+
+        callApi();
+    </script>
+</head>
+
+<body>
+    <h1> API fetching </h1>
+    <table border="1">
+        <thead>
+            <!-- first row with the headings of each column -->
+            <tr>
+                <th>Total price</th>
+
+                <th> Discounted Percentage</th>
+                <th> Discounted Price</th>
+            </tr>
+        </thead>
+        <tbody id="userId">
+
+        </tbody>
+
+    </table>
+</body>
+
+</html>
